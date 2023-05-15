@@ -38,6 +38,14 @@ void Camera::moveCam(GLFWwindow* window, float speed) {
 	{
 		move(-90, speed);
 	}
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+	{
+		position.y -= speed * 0.5f;
+	}
+	if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+	{
+		position.y += speed * 0.5f;
+	}
 }
 
 void Camera::update(GLFWwindow* window) {
@@ -47,7 +55,11 @@ void Camera::update(GLFWwindow* window) {
 	static double lastX = x;
 	static double lastY = y;
 
-	rotation.x -= (float)(lastY - y) / 100.0f;
+	float tempX = rotation.x - (float)(lastY - y) / 100.f;
+
+	if (tempX < 0.5f && tempX > -0.5f)
+		rotation.x = tempX;
+
 	rotation.y -= (float)(lastX - x) / 100.0f;
 
 	lastX = x;

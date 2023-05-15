@@ -10,6 +10,7 @@ using tigl::Vertex;
 #pragma comment(lib, "opengl32.lib")
 
 GLFWwindow* window;
+Camera* camera;
 
 int width = 1400, height = 800;
 void init();
@@ -45,7 +46,6 @@ int main(void)
 	return 0;
 }
 
-Camera* camera;
 
 void init()
 {
@@ -58,7 +58,6 @@ void init()
 	glEnable(GL_DEPTH_TEST);
 
 	camera = new Camera(window);
-
 }
 
 void drawCube(const glm::vec3& size)
@@ -109,8 +108,6 @@ void update()
 	camera->update(window);
 }
 
-glm::vec3 ballPosition(0, 0, 0);
-
 void draw()
 {
 	glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
@@ -118,11 +115,19 @@ void draw()
 
 	tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(80.0f), (float)width / height, 0.1f, 100.0f));
 	tigl::shader->setViewMatrix(camera->getMatrix());
+	tigl::shader->setModelMatrix(glm::mat4(1.0f));
 	tigl::shader->enableColor(true);
 
-	//zijkanten
+	tigl::begin(GL_QUADS);
+	tigl::addVertex(Vertex::PC(glm::vec3(-1, -1, -1), glm::vec4(1, 0 , 0, 1)));
+	tigl::addVertex(Vertex::PC(glm::vec3(-1, -1, 1), glm::vec4(0, 1, 0, 1)));
+	tigl::addVertex(Vertex::PC(glm::vec3(1, -1, 1), glm::vec4(0, 0, 1, 1)));
+	tigl::addVertex(Vertex::PC(glm::vec3(1, -1, -1), glm::vec4(0, 0, 0, 1)));
+	tigl::end();
+
+	/*//zijkanten
 	tigl::shader->setModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(8.5f, 0, 0)));
-	drawCube(glm::vec3(1, 5, 1));
+	drawCube(glm::vec3(1, 5, 1));*/
 
 	//tigl::shader->setModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(-8.5, 0, 0)));
 	//drawCube(glm::vec3(1, 5, 1));
