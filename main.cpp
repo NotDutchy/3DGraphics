@@ -41,7 +41,6 @@ int main(void)
 
 	glfwTerminate();
 
-
 	return 0;
 }
 
@@ -51,6 +50,10 @@ void init()
 		{
 			if (key == GLFW_KEY_ESCAPE)
 				glfwSetWindowShouldClose(window, true);
+			if (key == GLFW_KEY_A)
+			{
+
+			}
 		});
 
 	glEnable(GL_DEPTH_TEST);
@@ -119,15 +122,15 @@ void draw()
 	tigl::shader->setModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(8.5f, 0, 0)));
 	drawCube(glm::vec3(1, 5, 1));
 
-	tigl::shader->setModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(-8.5, 0, 0)));
-	drawCube(glm::vec3(1, 5, 1));
+	//tigl::shader->setModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(-8.5, 0, 0)));
+	//drawCube(glm::vec3(1, 5, 1));
 
-	//voor/achter
-	tigl::shader->setModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 8.5f)));
-	drawCube(glm::vec3(1, 5, 1));
+	////voor/achter
+	//tigl::shader->setModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, 8.5f)));
+	//drawCube(glm::vec3(1, 5, 1));
 
-	tigl::shader->setModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -8.5)));
-	drawCube(glm::vec3(1, 5, 1));
+	//tigl::shader->setModelMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -8.5)));
+	//drawCube(glm::vec3(1, 5, 1));
 
 	//tigl::shader->enableColorMult(true);
 	//tigl::shader->setColorMult(glm::vec4(1, 1, 1, 1));
