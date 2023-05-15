@@ -57,7 +57,7 @@ void Camera::update(GLFWwindow* window) {
 
 	float tempX = rotation.x - (float)(lastY - y) / 100.f;
 
-	if (tempX < 0.5f && tempX > -0.5f)
+	if (tempX < 1.5f && tempX > -1.0f)
 		rotation.x = tempX;
 
 	rotation.y -= (float)(lastX - x) / 100.0f;

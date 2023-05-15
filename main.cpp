@@ -119,10 +119,10 @@ void draw()
 	tigl::shader->enableColor(true);
 
 	tigl::begin(GL_QUADS);
-	tigl::addVertex(Vertex::PC(glm::vec3(-1, -1, -1), glm::vec4(1, 0 , 0, 1)));
-	tigl::addVertex(Vertex::PC(glm::vec3(-1, -1, 1), glm::vec4(0, 1, 0, 1)));
-	tigl::addVertex(Vertex::PC(glm::vec3(1, -1, 1), glm::vec4(0, 0, 1, 1)));
-	tigl::addVertex(Vertex::PC(glm::vec3(1, -1, -1), glm::vec4(0, 0, 0, 1)));
+	tigl::addVertex(Vertex::P(glm::vec3(-1, -1, -1)));
+	tigl::addVertex(Vertex::P(glm::vec3(-1, -1, 1)));
+	tigl::addVertex(Vertex::P(glm::vec3(1, -1, 1)));
+	tigl::addVertex(Vertex::P(glm::vec3(1, -1, -1)));
 	tigl::end();
 
 	/*//zijkanten
