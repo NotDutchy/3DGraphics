@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include "Camera.h"
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -44,19 +45,20 @@ int main(void)
 	return 0;
 }
 
+Camera* camera;
+
 void init()
 {
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
 			if (key == GLFW_KEY_ESCAPE)
 				glfwSetWindowShouldClose(window, true);
-			if (key == GLFW_KEY_A)
-			{
-
-			}
 		});
 
 	glEnable(GL_DEPTH_TEST);
+
+	camera = new Camera(window);
+
 }
 
 void drawCube(const glm::vec3& size)
@@ -104,7 +106,7 @@ void drawCube(const glm::vec3& size)
 
 void update()
 {
-
+	camera->update(window);
 }
 
 glm::vec3 ballPosition(0, 0, 0);
@@ -115,7 +117,7 @@ void draw()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	tigl::shader->setProjectionMatrix(glm::perspective(glm::radians(80.0f), (float)width / height, 0.1f, 100.0f));
-	tigl::shader->setViewMatrix(glm::lookAt(glm::vec3(0, 7, -12), ballPosition, glm::vec3(0, 1, 0)));
+	tigl::shader->setViewMatrix(camera->getMatrix());
 	tigl::shader->enableColor(true);
 
 	//zijkanten
