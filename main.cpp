@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Camera.h"
 #include "GameObject.h"
+#include "ModelComponent.h"
+#include "ObjModel.h"
 #include "TileComponent.h"
 using tigl::Vertex;
 
@@ -16,14 +18,14 @@ GLFWwindow* window;
 Camera* camera;
 
 std::list<std::shared_ptr<GameObject>> objects;
-
 std::list<std::shared_ptr<GameObject>> tiles;
+std::shared_ptr<GameObject> turret;
 
 void init();
 void update();
 void draw();
-int main(void)
 
+int main(void)
 {
 	if (!glfwInit())
 		throw "Could not initialize glwf";
@@ -52,9 +54,24 @@ int main(void)
 	return 0;
 }
 
-
 void init()
 {
+	glEnable(GL_DEPTH_TEST);
+	tigl::shader->enableLighting(true);
+	tigl::shader->setLightCount(1);
+	tigl::shader->setLightDirectional(0, true);
+	tigl::shader->setLightPosition(0, glm::normalize(glm::vec3(1, 1, 1)));
+	tigl::shader->setLightAmbient(0, glm::vec3(0.5f, 0.5f, 0.5f));
+	tigl::shader->setLightDiffuse(0, glm::vec3(0.5f, 0.5f, 0.5f));
+	tigl::shader->setLightSpecular(0, glm::vec3(1, 1, 1));
+	tigl::shader->setShinyness(0);
+
+	turret = std::make_shared <GameObject>();
+	turret->position = glm::vec3(3, 0,3);
+	//turret->addComponent(std::make_shared<ModelComponent>("models/turret/TowerDefenseTurret.obj"));
+	turret->addComponent(std::make_shared<ModelComponent>("models/turret/Turret10.obj"));
+	objects.push_back(turret);
+
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)
@@ -72,8 +89,6 @@ void init()
 			if (key == GLFW_KEY_ESCAPE)
 				glfwSetWindowShouldClose(window, true);
 		});
-
-	glEnable(GL_DEPTH_TEST);
 
 	camera = new Camera(window);
 }
@@ -99,9 +114,9 @@ void draw()
 
 	for (auto& tile : tiles)
 	{
-		//tile->draw();
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		tile->draw();
+		/*glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		tile->draw();*/
 	}
 
 	for (auto& o : objects)
