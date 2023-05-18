@@ -16,11 +16,14 @@ GLFWwindow* window;
 Camera* camera;
 
 std::list<std::shared_ptr<GameObject>> objects;
+
+std::list<std::shared_ptr<GameObject>> tiles;
+
 void init();
 void update();
 void draw();
-
 int main(void)
+
 {
 	if (!glfwInit())
 		throw "Could not initialize glwf";
@@ -60,7 +63,7 @@ void init()
 			o->position = glm::vec3(i, -1, j);
 			o->addComponent(std::make_shared<TileComponent>(1.0f));
 			std::cout << "Object position: " << o->position.x << " " << o->position.y << " " << o->position.z << "\n";
-			objects.push_back(o);
+			tiles.push_back(o);
 		}
 	}
 
@@ -82,7 +85,7 @@ void update()
 
 void draw()
 {
-	glClearColor(0.3f, 0.4f, 0.6f, 1.0f);
+	glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	int viewport[4];
@@ -94,10 +97,15 @@ void draw()
 	tigl::shader->setModelMatrix(glm::mat4(1.0f));
 	tigl::shader->enableColor(true);
 
+	for (auto& tile : tiles)
+	{
+		//tile->draw();
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		tile->draw();
+	}
+
 	for (auto& o : objects)
 	{
 		o->draw();
-		/*glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		o->draw();*/
 	}
 }
