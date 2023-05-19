@@ -48,6 +48,9 @@
     <ClCompile Include="ModelComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="PathGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -76,6 +79,9 @@
     </ClInclude>
     <ClInclude Include="ModelComponent.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="PathGenerator.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

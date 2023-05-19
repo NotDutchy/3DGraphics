@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "ModelComponent.h"
 #include "ObjModel.h"
+#include "PathGenerator.h"
 #include "TileComponent.h"
 using tigl::Vertex;
 
@@ -16,10 +17,12 @@ using tigl::Vertex;
 
 GLFWwindow* window;
 Camera* camera;
+PathGenerator* pathGenerator;
 
 std::list<std::shared_ptr<GameObject>> objects;
 std::list<std::shared_ptr<GameObject>> tiles;
 std::shared_ptr<GameObject> turret;
+std::vector<std::vector<int>> grid(10, std::vector<int>(10, 0));
 
 void init();
 void update();
@@ -77,9 +80,10 @@ void init()
 		for (int j = 0; j < 10; j++)
 		{
 			auto o = std::make_shared<GameObject>();
+			grid[i][j] = 0;
 			o->position = glm::vec3(i, -1, j);
-			o->addComponent(std::make_shared<TileComponent>(1.0f));
-			std::cout << "Object position: " << o->position.x << " " << o->position.y << " " << o->position.z << "\n";
+			o->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture2.jpg")));
+			//std::cout << "Object position: " << o->position.x << " " << o->position.y << " " << o->position.z << "\n";
 			tiles.push_back(o);
 		}
 	}
@@ -90,6 +94,7 @@ void init()
 				glfwSetWindowShouldClose(window, true);
 		});
 
+	pathGenerator = new PathGenerator(grid);
 	camera = new Camera(window);
 }
 
@@ -117,6 +122,14 @@ void draw()
 		tile->draw();
 		/*glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		tile->draw();*/
+	}
+
+	std::vector<PathGenerator::Cell*> path = pathGenerator->aStar();
+	pathGenerator->printGrid();
+
+	for (PathGenerator::Cell* cell : path)
+	{
+		delete cell;
 	}
 
 	for (auto& o : objects)
