@@ -19,10 +19,14 @@ GLFWwindow* window;
 Camera* camera;
 PathGenerator* pathGenerator;
 
+int gridWidth = 10;
+int gridHeight = 10;
+
 std::list<std::shared_ptr<GameObject>> objects;
 std::list<std::shared_ptr<GameObject>> tiles;
 std::shared_ptr<GameObject> turret;
-std::vector<std::vector<int>> grid(10, std::vector<int>(10, 0));
+
+std::vector<std::vector<int>> grid;
 
 void init();
 void update();
@@ -75,18 +79,40 @@ void init()
 	turret->addComponent(std::make_shared<ModelComponent>("models/turret/Turret10.obj"));
 	objects.push_back(turret);
 
-	for (int i = 0; i < 10; i++)
+	//Generate the grid for A*
+	for (int i = 0; i < gridWidth; i++)
 	{
-		for (int j = 0; j < 10; j++)
+		std::vector<int> columns;
+		for (int j = 0; j < gridHeight; j++)
 		{
 			auto o = std::make_shared<GameObject>();
-			grid[i][j] = 0;
 			o->position = glm::vec3(i, -1, j);
-			o->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture2.jpg")));
-			//std::cout << "Object position: " << o->position.x << " " << o->position.y << " " << o->position.z << "\n";
 			tiles.push_back(o);
+			columns.push_back(0);
+		}
+		grid.push_back(columns);
+	}
+
+	pathGenerator = new PathGenerator(&grid);
+	std::vector<PathGenerator::Cell*> path = pathGenerator->aStar();
+	pathGenerator->printGrid();
+	pathGenerator->printPath(path);
+
+	for (auto& object : tiles)
+	{
+		for (auto cell : path)
+		{
+			if ((object->position.x == cell->row) && (object->position.z == cell->col))
+			{
+				object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture2.jpg")));
+			}
+			else
+			{
+				object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture.jpg")));
+			}
 		}
 	}
+
 
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
@@ -94,7 +120,6 @@ void init()
 				glfwSetWindowShouldClose(window, true);
 		});
 
-	pathGenerator = new PathGenerator(grid);
 	camera = new Camera(window);
 }
 
@@ -124,13 +149,10 @@ void draw()
 		tile->draw();*/
 	}
 
-	std::vector<PathGenerator::Cell*> path = pathGenerator->aStar();
-	pathGenerator->printGrid();
-
-	for (PathGenerator::Cell* cell : path)
+	/*for (PathGenerator::Cell* cell : path)
 	{
 		delete cell;
-	}
+	}*/
 
 	for (auto& o : objects)
 	{
