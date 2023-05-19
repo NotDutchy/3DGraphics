@@ -3,7 +3,6 @@
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-
 GameObject::GameObject()
 {
 
@@ -55,4 +54,3 @@ void GameObject::update(float elapsedTime)
 		c->update(elapsedTime);
 	}
 }
-

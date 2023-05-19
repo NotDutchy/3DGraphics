@@ -9,4 +9,3 @@ DrawComponent::~DrawComponent()
 {
 	
 }
-

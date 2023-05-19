@@ -214,7 +214,6 @@ void ObjModel::draw()
 		}
 	}
 	tigl::end();
-
 }
 
 void ObjModel::loadMaterialFile(const std::string& fileName, const std::string& dirName)
@@ -290,7 +289,6 @@ void ObjModel::loadMaterialFile(const std::string& fileName, const std::string& 
 	}
 	if (currentMaterial != NULL)
 		materials.push_back(currentMaterial);
-
 }
 
 ObjModel::MaterialInfo::MaterialInfo()
