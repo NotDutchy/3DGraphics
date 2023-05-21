@@ -10,9 +10,12 @@ class TileComponent : public DrawComponent
 {
 	std::vector<tigl::Vertex> verts;
 	Texture* texture;
+
 public:
-	TileComponent(float size, Texture* texture);
+	TileComponent(float size, Texture* texture, bool isPath); //, 
 	~TileComponent();
+
+	bool isPath = false;
 
 	virtual void draw() override;
 };
