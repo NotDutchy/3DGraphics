@@ -160,9 +160,11 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
+    <ClCompile Include="EnemyComponent.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ModelComponent.cpp" />
+    <ClCompile Include="MoveToComponent.cpp" />
     <ClCompile Include="ObjModel.cpp" />
     <ClCompile Include="PathGenerator.cpp" />
     <ClCompile Include="Texture.cpp" />
@@ -173,8 +175,10 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DrawComponent.h" />
+    <ClInclude Include="EnemyComponent.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ModelComponent.h" />
+    <ClInclude Include="MoveToComponent.h" />
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="PathGenerator.h" />
     <ClInclude Include="Texture.h" />

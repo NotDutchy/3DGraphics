@@ -23,25 +23,25 @@ bool PathGenerator::isGoalCell(const Cell& cell, const Cell& goal)
 	return (cell.row == goal.row && cell.col == goal.col);
 }
 
-std::vector<PathGenerator::Cell*> PathGenerator::tracePath(Cell* goal)
+std::vector<PathGenerator::Cell*>* PathGenerator::tracePath(Cell* goal)
 {
-	std::vector<Cell*> path;
+	auto* path = new std::vector<Cell*>;
 	Cell* current = goal;
 	while (current != nullptr)
 	{
-		path.push_back(current);
+		path->push_back(current);
 		current = current->parent;
 	}
-	std::reverse(path.begin(), path.end());
+	std::reverse(path->begin(), path->end());
 	return path;
 }
 
-std::vector<PathGenerator::Cell*> PathGenerator::aStar()
+std::vector<PathGenerator::Cell*>* PathGenerator::aStar()
 {
 	if (!isValidCell(*grid, start->row, start->col) || !isValidCell(*grid, goal->row, goal->col))
 	{
 		std::cout << "Invalid start or goal cell" << "\n";
-		return std::vector<Cell*>();
+		return nullptr;
 	}
 
 	std::priority_queue<Cell*, std::vector<Cell*>, CompareCells> openSet;
@@ -97,7 +97,7 @@ std::vector<PathGenerator::Cell*> PathGenerator::aStar()
 	}
 
 	std::cout << "No path found" << std::endl;
-	return std::vector<Cell*>();
+	return nullptr;
 }
 
 void PathGenerator::printGrid()

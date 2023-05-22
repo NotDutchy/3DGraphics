@@ -9,6 +9,7 @@
 #include "ObjModel.h"
 #include "PathGenerator.h"
 #include "TileComponent.h"
+#include "MoveToComponent.h"
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -21,11 +22,13 @@ PathGenerator* pathGenerator;
 
 int gridWidth = 10;
 int gridHeight = 10;
+double lastFrameTime = 0;
 
 std::list<std::shared_ptr<GameObject>> objects;
 std::list<std::shared_ptr<GameObject>> tiles;
 std::shared_ptr<GameObject> turret;
 
+std::vector<PathGenerator::Cell*>* path;
 std::vector<std::vector<int>> grid;
 
 void init();
@@ -73,12 +76,6 @@ void init()
 	tigl::shader->setLightSpecular(0, glm::vec3(1, 1, 1));
 	tigl::shader->setShinyness(0);
 
-	turret = std::make_shared <GameObject>();
-	turret->position = glm::vec3(3, 0,3);
-	//turret->addComponent(std::make_shared<ModelComponent>("models/turret/TowerDefenseTurret.obj"));
-	turret->addComponent(std::make_shared<ModelComponent>("models/turret/Turret10.obj"));
-	objects.push_back(turret);
-
 	//Generate the grid for A*
 	for (int i = 0; i < gridWidth; i++)
 	{
@@ -96,11 +93,18 @@ void init()
 	pathGenerator = new PathGenerator(&grid);
 	std::vector<PathGenerator::Cell*> path = pathGenerator->aStar();
 	pathGenerator->printGrid();
-	pathGenerator->printPath(path);
+	pathGenerator->printPath(*path);
+
+	turret = std::make_shared <GameObject>();
+	turret->position = glm::vec3(0, 0,0);
+	//turret->addComponent(std::make_shared<ModelComponent>("models/turret/TowerDefenseTurret.obj"));
+	turret->addComponent(std::make_shared<ModelComponent>("models/turret/Turret10.obj"));
+	turret->addComponent(std::make_shared<MoveToComponent>(*path));
+	objects.push_back(turret);
 
 	for (auto& object : tiles)
 	{
-		for (auto cell : path)
+		for (auto& cell : *path)
 		{
 			if ((object->position.x == cell->row) && (object->position.z == cell->col))
 			{
@@ -111,6 +115,16 @@ void init()
 				object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture.jpg")));
 			}
 		}
+
+		/*if (!object->getComponent<TileComponent>()->isPath)
+		{
+			std::cout << "Tile is part of path continuing\n";
+		}
+		else
+		{
+			std::cout << "Adding regular tile to array\n";
+			object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture.jpg"), false)); //, 
+		}*/
 	}
 
 
@@ -125,6 +139,14 @@ void init()
 
 void update()
 {
+	double currentFrameTime = glfwGetTime();
+	double deltaTime = currentFrameTime - lastFrameTime;
+	lastFrameTime = currentFrameTime;
+
+	for (auto& obj : objects)
+	{
+		obj->update((float) deltaTime);
+	}
 	camera->update(window);
 }
 
@@ -144,9 +166,9 @@ void draw()
 
 	for (auto& tile : tiles)
 	{
+		//tile->draw();
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		tile->draw();
-		/*glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-		tile->draw();*/
 	}
 
 	/*for (PathGenerator::Cell* cell : path)
