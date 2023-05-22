@@ -91,7 +91,7 @@ void init()
 	}
 
 	pathGenerator = new PathGenerator(&grid);
-	std::vector<PathGenerator::Cell*> path = pathGenerator->aStar();
+	path = pathGenerator->aStar();
 	pathGenerator->printGrid();
 	pathGenerator->printPath(*path);
 
@@ -110,10 +110,6 @@ void init()
 			{
 				object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture2.jpg")));
 			}
-			else
-			{
-				object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture.jpg")));
-			}
 		}
 
 		/*if (!object->getComponent<TileComponent>()->isPath)
@@ -126,7 +122,6 @@ void init()
 			object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture.jpg"), false)); //, 
 		}*/
 	}
-
 
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
@@ -166,9 +161,9 @@ void draw()
 
 	for (auto& tile : tiles)
 	{
-		//tile->draw();
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 		tile->draw();
+		/*glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		tile->draw();*/
 	}
 
 	/*for (PathGenerator::Cell* cell : path)

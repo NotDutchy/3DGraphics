@@ -7,7 +7,7 @@
 class MoveToComponent : public Component
 {
 public:
-	float speed = 0.06f;
+	float speed = 0.075f;
 	int nextTarget = 1;
 	glm::vec3 target;
 	std::vector<PathGenerator::Cell*> path;
