@@ -29,7 +29,6 @@ std::list<std::shared_ptr<GameObject>> tiles;
 std::shared_ptr<GameObject> turret;
 
 std::vector<PathGenerator::Cell*>* path;
-std::vector<PathGenerator::Cell*> path;
 std::vector<std::vector<int>> grid;
 
 void init();
@@ -109,7 +108,7 @@ void init()
 		{
 			if ((object->position.x == cell->row) && (object->position.z == cell->col))
 			{
-				object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture2.jpg")));
+				object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture2.jpg"), true));
 			}
 		}
 
