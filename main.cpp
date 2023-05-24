@@ -28,11 +28,8 @@ std::list<std::shared_ptr<GameObject>> objects;
 std::list<std::shared_ptr<GameObject>> tiles;
 std::shared_ptr<GameObject> turret;
 
-<<<<<<< HEAD
 std::vector<PathGenerator::Cell*>* path;
-=======
 std::vector<PathGenerator::Cell*> path;
->>>>>>> inconsistentLoading
 std::vector<std::vector<int>> grid;
 
 void init();
@@ -108,7 +105,6 @@ void init()
 
 	for (auto& object : tiles)
 	{
-<<<<<<< HEAD
 		for (auto& cell : *path)
 		{
 			if ((object->position.x == cell->row) && (object->position.z == cell->col))
@@ -117,20 +113,7 @@ void init()
 			}
 		}
 
-		/*if (!object->getComponent<TileComponent>()->isPath)
-=======
-		for (auto& cell : path)
-		{
-			if ((object->position.x == cell->row) && (object->position.z == cell->col))
-			{
-				std::cout << "Adding path tile to array\n";
-				object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture2.jpg"), true)); //,
-				break;
-			}
-		}
-
 		if (object->getComponent<TileComponent>() != nullptr && !object->getComponent<TileComponent>()->isPath)
->>>>>>> inconsistentLoading
 		{
 			std::cout << "Tile is part of path continuing\n";
 		}
@@ -138,12 +121,9 @@ void init()
 		{
 			std::cout << "Adding regular tile to array\n";
 			object->addComponent(std::make_shared<TileComponent>(1.0f, new Texture("resource/textures/pathTexture.jpg"), false)); //, 
-<<<<<<< HEAD
-		}*/
-=======
 		}
->>>>>>> inconsistentLoading
 	}
+		
 
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
