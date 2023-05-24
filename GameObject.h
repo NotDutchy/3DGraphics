@@ -36,8 +36,8 @@ public:
 			{
 				return t;
 			}
-			return nullptr;
 		}
+		return nullptr;
 	}
 
 	template<class T>

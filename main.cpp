@@ -111,7 +111,7 @@ void init()
 			}
 		}
 
-		if (!object->getComponent<TileComponent>()->isPath)
+		if (object->getComponent<TileComponent>() != nullptr && !object->getComponent<TileComponent>()->isPath)
 		{
 			std::cout << "Tile is part of path continuing\n";
 		}
