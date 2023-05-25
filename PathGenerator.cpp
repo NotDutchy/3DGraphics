@@ -1,9 +1,9 @@
 #include "PathGenerator.h"
 
-PathGenerator::PathGenerator(std::vector<std::vector<int>> *startGrid) : grid(startGrid)
+PathGenerator::PathGenerator(std::vector<std::vector<int>> startGrid) : grid(startGrid)
 {
 	start = new Cell(0, 0);
-	goal =  new Cell(grid->size() - 1, grid->size() - 1);
+	goal =  new Cell(grid.size() - 1, grid.size() - 1);
 }
 
 PathGenerator::~PathGenerator()
@@ -38,7 +38,7 @@ std::vector<PathGenerator::Cell*>* PathGenerator::tracePath(Cell* goal)
 
 std::vector<PathGenerator::Cell*>* PathGenerator::aStar()
 {
-	if (!isValidCell(*grid, start->row, start->col) || !isValidCell(*grid, goal->row, goal->col))
+	if (!isValidCell(grid, start->row, start->col) || !isValidCell(grid, goal->row, goal->col))
 	{
 		std::cout << "Invalid start or goal cell" << "\n";
 		return nullptr;
@@ -47,7 +47,7 @@ std::vector<PathGenerator::Cell*>* PathGenerator::aStar()
 	std::priority_queue<Cell*, std::vector<Cell*>, CompareCells> openSet;
 	openSet.push(new Cell(start->row, start->col));
 
-	std::vector<std::vector<bool>> visited(grid->size(), std::vector<bool>(grid[0].size(), false));
+	std::vector<std::vector<bool>> visited(grid.size(), std::vector<bool>(grid[0].size(), false));
 
 	start->costStartToCurrent = 0;
 	start->calculateHeuristic(*goal);
@@ -75,10 +75,10 @@ std::vector<PathGenerator::Cell*>* PathGenerator::aStar()
 			int newRow = row + dr[i];
 			int newCol = col + dc[i];
 
-			if (newRow < 0 || newCol < 0 || newRow > grid->size() - 1 || newCol > grid[0].size() - 1)
+			if (newRow < 0 || newCol < 0 || newRow > grid.size() - 1 || newCol > grid[0].size() - 1)
 				continue;
 
-			if (isValidCell(*grid, newRow, newCol) && !visited[newRow][newCol])
+			if (isValidCell(grid, newRow, newCol) && !visited[newRow][newCol])
 			{
 				auto neighbor = new Cell(newRow, newCol);
 				neighbor->parent = current;
@@ -102,7 +102,7 @@ std::vector<PathGenerator::Cell*>* PathGenerator::aStar()
 
 void PathGenerator::printGrid()
 {
-	for (const auto& row : *grid)
+	for (const auto& row : grid)
 	{
 		for (auto cell : row)
 		{

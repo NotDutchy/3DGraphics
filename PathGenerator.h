@@ -8,7 +8,7 @@
 class PathGenerator
 {
 public:
-	PathGenerator(std::vector<std::vector<int>> *startGrid);
+	PathGenerator(std::vector<std::vector<int>> startGrid);
 	~PathGenerator();
 
 	struct Cell
@@ -38,7 +38,7 @@ public:
 		}
 	};
 
-	std::vector<std::vector<int>> *grid;
+	std::vector<std::vector<int>> grid;
 
 	bool isValidCell(const std::vector<std::vector<int>>& grid, int row, int col);
 	bool isGoalCell(const Cell& cell, const Cell& goal);

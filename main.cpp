@@ -90,7 +90,7 @@ void init()
 		grid.push_back(columns);
 	}
 
-	pathGenerator = new PathGenerator(&grid);
+	pathGenerator = new PathGenerator(grid);
 	path = pathGenerator->aStar();
 	pathGenerator->printGrid();
 	pathGenerator->printPath(*path);
@@ -101,10 +101,10 @@ void init()
 	turret->addComponent(std::make_shared<ModelComponent>("models/turret/Turret10.obj"));
 	turret->addComponent(std::make_shared<MoveToComponent>(*path));
 	objects.push_back(turret);
-
+	 
 	for (auto& object : tiles)
 	{
-		for (auto& cell : *path)
+		for (auto cell : *path)
 		{
 			if ((object->position.x == cell->row) && (object->position.z == cell->col))
 			{
