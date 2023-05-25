@@ -17,5 +17,4 @@ public:
 
 	virtual void update(float elapsedTime) override;
 	void updateTarget();
-};
-
+}; 

@@ -1,8 +1,8 @@
 #include "ModelComponent.h"
 
-ModelComponent::ModelComponent(std::string path)
+ModelComponent::ModelComponent(ObjModel* model) : model(model)
 {
-	model = new ObjModel(path);
+	
 }
 
 ModelComponent::~ModelComponent()

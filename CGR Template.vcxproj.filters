@@ -54,6 +54,12 @@
     <ClCompile Include="MoveToComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tigl.h">
@@ -88,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="MoveToComponent.h">
       <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyComponent.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

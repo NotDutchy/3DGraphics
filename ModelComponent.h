@@ -7,7 +7,7 @@ class ModelComponent : public DrawComponent
 {
 	ObjModel* model;
 public:
-	ModelComponent(std::string path);
+	ModelComponent(ObjModel* model);
 	~ModelComponent();
 
 	virtual void draw() override;

@@ -43,9 +43,9 @@ public:
 	bool isValidCell(const std::vector<std::vector<int>>& grid, int row, int col);
 	bool isGoalCell(const Cell& cell, const Cell& goal);
 
-	std::vector<Cell*>* tracePath(Cell* goal);
-
-	std::vector<Cell*>* aStar();
+	std::vector<Cell*> tracePath(Cell* goal);
+	
+	std::vector<Cell*> aStar();
 	void printGrid();
 	void printPath(const std::vector<Cell*>& path);
 };
