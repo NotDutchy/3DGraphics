@@ -105,13 +105,11 @@ void init()
 	pathGenerator->printPath(path);
 	gameManager = new GameManager(objects, path, models);
 
-	turret = std::make_shared <GameObject>();
+	turret = std::make_shared<GameObject>();
 	turret->position = glm::vec3(5, 0,5);
-	//turret->addComponent(std::make_shared<ModelComponent>("models/turret/TowerDefenseTurret.obj"));
 	turret->addComponent(std::make_shared<ModelComponent>(models[0]));
-	turret->addComponent(std::make_shared<MoveToComponent>(path));
 	objects.push_back(turret);
-	 
+
 	for (auto& object : tiles)
 	{
 		for (auto cell : path)
@@ -124,15 +122,14 @@ void init()
 
 		if (object->getComponent<TileComponent>() != nullptr && object->getComponent<TileComponent>()->isPath)
 		{
-			std::cout << "Tile is part of path continuing\n";
+			//std::cout << "Tile is part of path continuing\n";
 		}
 		else
 		{
-			std::cout << "Adding regular tile to array\n";
+			//std::cout << "Adding regular tile to array\n";
 			object->addComponent(std::make_shared<TileComponent>(1.0f, textures[1], false)); //, 
 		}
 	}
-		
 
 	glfwSetKeyCallback(window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 		{
@@ -141,7 +138,6 @@ void init()
 		});
 
 	camera = new Camera(window);
-
 }
 
 void update()
@@ -156,7 +152,7 @@ void update()
 	}
 	camera->update(window);
 
-	std::cout << objects.size() << std::endl;
+	//std::cout << objects.size() << std::endl;
 }
 
 void draw()

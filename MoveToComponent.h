@@ -7,14 +7,13 @@
 class MoveToComponent : public Component
 {
 public:
-	float speed = 0.075f;
+	float speed = 0.15f;
 	int nextTarget = 1;
 	glm::vec3 target;
-	std::vector<PathGenerator::Cell*> path;
+	std::vector<PathGenerator::Cell*>& path;
 
-	MoveToComponent(std::vector<PathGenerator::Cell*> &path);
+	MoveToComponent(std::vector<PathGenerator::Cell*>& path);
 	~MoveToComponent();
 
-	virtual void update(float elapsedTime) override;
-	void updateTarget();
-}; 
+	virtual void update(float elapsedTime) override; 
+};

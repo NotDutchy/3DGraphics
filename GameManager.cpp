@@ -23,7 +23,7 @@ void GameManager::spawnEnemies()
 	{
 		std::cout << "Spawning Enemy\n";
 		auto enemy = std::make_shared<GameObject>();
-		enemy->position = glm::vec3(0, -10, 0);
+		enemy->position = glm::vec3(0, 0, 0);
 		enemy->addComponent(std::make_shared<ModelComponent>(models[1]));
 		enemy->addComponent(std::make_shared<MoveToComponent>(path));
 		objects.push_back(enemy);

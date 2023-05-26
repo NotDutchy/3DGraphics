@@ -24,5 +24,5 @@ void MoveToComponent::update(float elapsedTime)
 	gameObject->position = (1 - speed) * gameObject->position + speed * target;
 
 	float angle = atan2(gameObject->position.z - target.z, gameObject->position.x - target.x);
-	gameObject->rotation.y = 0.05f * angle + 0.95f * gameObject->rotation.y;
+	gameObject->rotation.y = 0.05f * -angle + 0.95f * gameObject->rotation.y;
 }
