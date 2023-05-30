@@ -171,6 +171,7 @@
     <ClCompile Include="MoveToComponent.cpp" />
     <ClCompile Include="ObjModel.cpp" />
     <ClCompile Include="PathGenerator.cpp" />
+    <ClCompile Include="PreviewComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="tigl.cpp" />
     <ClCompile Include="TileComponent.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="MoveToComponent.h" />
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="PathGenerator.h" />
+    <ClInclude Include="PreviewComponent.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="tigl.h" />
     <ClInclude Include="TileComponent.h" />

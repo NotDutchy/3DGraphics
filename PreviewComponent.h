@@ -4,9 +4,14 @@
 class PreviewComponent : public Component
 {
 public:
-	PreviewComponent(Camera* camera);
+	PreviewComponent(Camera* camera, GLFWwindow* window);
 	~PreviewComponent();
 
-	void update();
+	Camera* camera;
+	GLFWwindow* window;
+
+	virtual void update(float elapsedTime) override;
+	void move(float angle, float fac);
+	void moveModel(float speed);
 };
 
