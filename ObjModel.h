@@ -6,11 +6,13 @@
 #include <string>
 #include <vector>
 #include <list>
+#include "tigl.h"
 
 class Texture;
 
 class ObjModel
 {
+	std::vector<tigl::Vertex> verts;
 private:
 	class Vertex
 	{
@@ -52,7 +54,6 @@ private:
 public:
 	ObjModel(const std::string& filename);
 	~ObjModel(void);
-
 	void draw();
 };
 
