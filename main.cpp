@@ -99,14 +99,15 @@ void init()
 		grid.push_back(columns);
 	}
 
+	camera = new Camera(window);
 	pathGenerator = new PathGenerator(grid);
 	path = pathGenerator->aStar();
 	pathGenerator->printGrid();
 	pathGenerator->printPath(path);
-	gameManager = new GameManager(objects, path, models);
+	gameManager = new GameManager(objects, path, models, window, camera);
 
 	turret = std::make_shared<GameObject>();
-	turret->position = glm::vec3(5, 0,5);
+	turret->position = glm::vec3(5, 0, 5);
 	turret->addComponent(std::make_shared<ModelComponent>(models[0]));
 	objects.push_back(turret);
 
@@ -136,8 +137,6 @@ void init()
 			if (key == GLFW_KEY_ESCAPE)
 				glfwSetWindowShouldClose(window, true);
 		});
-
-	camera = new Camera(window);
 }
 
 void update()
@@ -151,6 +150,7 @@ void update()
 		obj->update((float) deltaTime);
 	}
 	camera->update(window);
+	gameManager->update();
 
 	//std::cout << objects.size() << std::endl;
 }
