@@ -46,7 +46,6 @@ void GameManager::update()
 		//preview->addComponent(std::make_shared<PreviewComponent>());
 		objects.push_back(preview);
 	}
-
 }
 
 void GameManager::init()
