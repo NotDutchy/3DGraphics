@@ -81,7 +81,7 @@ void init()
 	tigl::shader->setShinyness(0);
 
 	textures.push_back(new Texture("resource/textures/pathTexture2.jpg"));
-	textures.push_back(new Texture("resource/textures/pathTexture.jpg"));
+	textures.push_back(new Texture("resource/textures/grass.jpg"));
 	models.push_back(new ObjModel("models/turret/Turret10.obj"));
 	models.push_back(new ObjModel("models/enemy/RubberDuck.obj"));
 

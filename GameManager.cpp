@@ -7,12 +7,13 @@
 #include <GLFW/glfw3.h>
 #include "ModelComponent.h"
 #include "MoveToComponent.h"
+#include "PreviewComponent.h"
 
 GameManager::GameManager(std::list<std::shared_ptr<GameObject>>& objects,
-	std::vector<PathGenerator::Cell*>& path,
-	std::vector<ObjModel*>& models,
-	GLFWwindow* window,
-	Camera* camera
+                         std::vector<PathGenerator::Cell*>& path,
+                         std::vector<ObjModel*>& models,
+                         GLFWwindow* window,
+                         Camera* camera
 )	: objects(objects), path(path), models(models), window(window), camera(camera)
 {
 
@@ -41,12 +42,12 @@ void GameManager::update()
 	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
 	{
 		auto preview = std::make_shared<GameObject>();
-		preview->position = glm::vec3(camera->position.x + 1, camera->position.y - 2, camera->position.z);
+		preview->position = glm::vec3(camera->position.x + 1, camera->position.y, camera->position.z);
+		preview->rotation = glm::vec3(camera->rotation.x, camera->rotation.y, 0);
 		preview->addComponent(std::make_shared<ModelComponent>(models[0]));
-		//preview->addComponent(std::make_shared<PreviewComponent>());
+		preview->addComponent(std::make_shared<PreviewComponent>(camera, window));
 		objects.push_back(preview);
 	}
-
 }
 
 void GameManager::init()
