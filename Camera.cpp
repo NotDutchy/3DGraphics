@@ -65,5 +65,5 @@ void Camera::update(GLFWwindow* window) {
 	lastX = x;
 	lastY = y;
 
-	moveCam(window, 0.1f);
+	moveCam(window, 0.5f);
 }

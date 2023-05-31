@@ -222,6 +222,10 @@ void ObjModel::draw()
 		tigl::shader->enableTexture(false);
 		texture->unbind();
 	}
+	else
+	{
+		tigl::drawVertices(GL_TRIANGLES, verts);
+	}
 }
 
 void ObjModel::loadMaterialFile(const std::string& fileName, const std::string& dirName)

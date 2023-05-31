@@ -19,7 +19,7 @@ public:
 	Camera* camera;
 
 	bool isOver = false;
-	bool endOfRound = false;
+	bool buildingPhase = true;
 
 	void spawnEnemies();
 	void update();

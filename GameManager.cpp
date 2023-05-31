@@ -25,7 +25,7 @@ GameManager::~GameManager()
 
 void GameManager::spawnEnemies()
 {
-	while (!isOver && !endOfRound)
+	while (!isOver && !buildingPhase)
 	{
 		std::cout << "Spawning Enemy\n";
 		auto enemy = std::make_shared<GameObject>();
@@ -39,11 +39,12 @@ void GameManager::spawnEnemies()
 
 void GameManager::update()
 {
-	if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
+	if (buildingPhase && glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
 	{
 		auto preview = std::make_shared<GameObject>();
-		preview->position = glm::vec3(camera->position.x + 1, camera->position.y, camera->position.z);
-		preview->rotation = glm::vec3(camera->rotation.x, camera->rotation.y, 0);
+		//preview->position = glm::vec3(camera->position.x + 1, camera->position.y, camera->position.z);
+		preview->position = glm::vec3(0, 0 ,0);
+		//preview->rotation = glm::vec3(camera->rotation.x, camera->rotation.y, 0);
 		preview->addComponent(std::make_shared<ModelComponent>(models[0]));
 		preview->addComponent(std::make_shared<PreviewComponent>(camera, window));
 		objects.push_back(preview);

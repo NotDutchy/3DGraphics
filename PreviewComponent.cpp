@@ -23,37 +23,23 @@ void PreviewComponent::moveModel(float speed)
 {
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 	{
-		//move(90, speed);
-		gameObject->position.x += 0.1f;
+		gameObject->position.x += speed;
 	}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 	{
-		gameObject->position.z -= 0.1f;
+		gameObject->position.z -= speed;
 	}
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 	{
-		gameObject->position.z += 0.1f;
+		gameObject->position.z += speed;
 	}
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 	{
-		gameObject->position.x -= 0.1f;
+		gameObject->position.x -= speed;
 	}
 }
 
 void PreviewComponent::update(float elapsedTime)
 {
-	double x, y;
-	glfwGetCursorPos(window, &x, &y);
-
-	static double lastX = x;
-	static double lastY = y;
-
-	float tempX = gameObject->rotation.x - (float)(lastY - y) / 100.f;
-
-	gameObject->rotation.y -= (float)(lastX - x) / 100.0f;
-
-	lastX = x;
-	lastY = y;
-
-	moveModel(0.1f);
+	moveModel(0.5f);
 }

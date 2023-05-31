@@ -22,8 +22,8 @@ Camera* camera;
 PathGenerator* pathGenerator;
 GameManager* gameManager;
 
-int gridWidth = 10;
-int gridHeight = 10;
+int gridWidth = 20;
+int gridHeight = 20;
 double lastFrameTime = 0;
 
 std::list<std::shared_ptr<GameObject>> objects;
@@ -74,11 +74,11 @@ void init()
 	tigl::shader->enableLighting(true);
 	tigl::shader->setLightCount(1);
 	tigl::shader->setLightDirectional(0, true);
-	tigl::shader->setLightPosition(0, glm::normalize(glm::vec3(1, 1, 1)));
+	tigl::shader->setLightPosition(0, glm::vec3(gridHeight / 2, 1,  gridWidth / 2));
 	tigl::shader->setLightAmbient(0, glm::vec3(0.5f, 0.5f, 0.5f));
 	tigl::shader->setLightDiffuse(0, glm::vec3(0.5f, 0.5f, 0.5f));
 	tigl::shader->setLightSpecular(0, glm::vec3(1, 1, 1));
-	tigl::shader->setShinyness(0);
+	tigl::shader->setShinyness(10);
 
 	textures.push_back(new Texture("resource/textures/pathTexture2.jpg"));
 	textures.push_back(new Texture("resource/textures/grass.jpg"));
