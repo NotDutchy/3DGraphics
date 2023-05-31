@@ -82,8 +82,8 @@ void init()
 
 	textures.push_back(new Texture("resource/textures/pathTexture2.jpg"));
 	textures.push_back(new Texture("resource/textures/grass.jpg"));
-	models.push_back(new ObjModel("models/turret/Turret10.obj"));
-	models.push_back(new ObjModel("models/enemy/RubberDuck.obj"));
+	models.push_back(new ObjModel("models/turret/TurretLegacy.obj"));
+	models.push_back(new ObjModel("models/enemy/RubberDuckLegacy.obj"));
 
 	//Generate the grid for A*
 	for (int i = 0; i < gridWidth; i++)

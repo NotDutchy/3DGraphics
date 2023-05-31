@@ -48,6 +48,7 @@ private:
 	std::vector<glm::vec3>	normals;
 	std::vector<glm::vec2>	texcoords;
 	std::vector<ObjGroup*> groups;
+	Texture* texture;
 	std::vector<MaterialInfo*> materials;
 
 	void loadMaterialFile(const std::string& fileName, const std::string& dirName);

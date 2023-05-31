@@ -177,8 +177,7 @@ ObjModel::ObjModel(const std::string& fileName)
 		if (!materials.empty()) {
 			MaterialInfo* material = materials[group->materialIndex];
 			if (material && material->texture) {
-				tigl::shader->enableTexture(true);
-				material->texture->bind();
+				texture = material->texture;
 			}
 		}
 
@@ -215,7 +214,14 @@ void ObjModel::draw()
 	//    foreach vertex in face
 	//      emit vertex
 
-	tigl::drawVertices(GL_TRIANGLES, verts);
+	if (texture)
+	{
+		texture->bind();
+		tigl::shader->enableTexture(true);
+		tigl::drawVertices(GL_TRIANGLES, verts);
+		tigl::shader->enableTexture(false);
+		texture->unbind();
+	}
 }
 
 void ObjModel::loadMaterialFile(const std::string& fileName, const std::string& dirName)
