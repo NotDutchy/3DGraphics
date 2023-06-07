@@ -19,27 +19,27 @@ PreviewComponent::~PreviewComponent()
 	gameObject->position.z += (float)sin(gameObject->rotation.y + glm::radians(angle)) * fac;
 }*/
 
-void PreviewComponent::moveModel(float speed)
+void PreviewComponent::updatePreviewMatrix()
 {
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		gameObject->position.x += speed;
-	}
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		gameObject->position.z -= speed;
-	}
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		gameObject->position.z += speed;
-	}
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-	{
-		gameObject->position.x -= speed;
-	}
+	glm::mat4 ret(1.0f);
+	glm::vec3 position = gameObject->position;
+
+	ret = glm::translate(ret, position);
+
+	ret = glm::rotate(ret, gameObject->rotation.y, glm::vec3(0, 1, 0));
+
+	ret = glm::rotate(ret, gameObject->rotation.x, glm::vec3(1, 0, 0));
+
+	float zDistance = -.5f;
+
+	position = glm::vec3(0.0f, 0.0f, zDistance);
+
+	ret = glm::translate(ret, position);
+
+	this->mat = ret;
 }
 
 void PreviewComponent::update(float elapsedTime)
 {
-	moveModel(0.5f);
+	updatePreviewMatrix();
 }

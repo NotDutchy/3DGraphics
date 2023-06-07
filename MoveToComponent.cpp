@@ -25,4 +25,9 @@ void MoveToComponent::update(float elapsedTime)
 
 	float angle = atan2(gameObject->position.z - target.z, gameObject->position.x - target.x);
 	gameObject->rotation.y = 0.05f * -angle + 0.95f * gameObject->rotation.y;
+
+	if (gameObject->position.x >= target.x - 0.01f && gameObject->position.z >= target.z - 0.01f && nextTarget == path.size() || gameObject->hp <= 0)
+	{
+		gameObject->isDead = true;
+	}
 }

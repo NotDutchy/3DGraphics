@@ -19,9 +19,10 @@ public:
 	Camera* camera;
 
 	bool isOver = false;
-	bool buildingPhase = true;
+	bool buildingPhase = false;
 
 	void spawnEnemies();
+	void despawnEnemies();
 	void update();
 	void init();
 };

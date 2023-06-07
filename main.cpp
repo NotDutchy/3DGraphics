@@ -22,8 +22,8 @@ Camera* camera;
 PathGenerator* pathGenerator;
 GameManager* gameManager;
 
-int gridWidth = 20;
-int gridHeight = 20;
+int gridWidth = 10;
+int gridHeight = 10;
 double lastFrameTime = 0;
 
 std::list<std::shared_ptr<GameObject>> objects;
@@ -61,6 +61,7 @@ int main(void)
 		draw();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
+		gameManager->despawnEnemies();
 	}
 
 	glfwTerminate();
@@ -78,7 +79,7 @@ void init()
 	tigl::shader->setLightAmbient(0, glm::vec3(0.5f, 0.5f, 0.5f));
 	tigl::shader->setLightDiffuse(0, glm::vec3(0.5f, 0.5f, 0.5f));
 	tigl::shader->setLightSpecular(0, glm::vec3(1, 1, 1));
-	tigl::shader->setShinyness(10);
+	tigl::shader->setShinyness(0);
 
 	textures.push_back(new Texture("resource/textures/pathTexture2.jpg"));
 	textures.push_back(new Texture("resource/textures/grass.jpg"));
@@ -185,4 +186,6 @@ void draw()
 	{
 		o->draw();
 	}
+
+	
 }

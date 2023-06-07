@@ -9,6 +9,16 @@
 #include "MoveToComponent.h"
 #include "PreviewComponent.h"
 
+auto removeDead = [](std::shared_ptr<GameObject> object)
+{
+	if (object->isDead)
+	{
+		std::cout << "Deleting object\n";
+		return true;
+	}
+	return false;
+};
+
 GameManager::GameManager(std::list<std::shared_ptr<GameObject>>& objects,
                          std::vector<PathGenerator::Cell*>& path,
                          std::vector<ObjModel*>& models,
@@ -35,6 +45,12 @@ void GameManager::spawnEnemies()
 		objects.push_back(enemy);
 		std::this_thread::sleep_for(std::chrono::seconds(5)); 
 	}
+}
+
+void GameManager::despawnEnemies()
+{
+	
+	objects.remove_if(removeDead);
 }
 
 void GameManager::update()
