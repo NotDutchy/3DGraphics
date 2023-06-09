@@ -3,7 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "tigl.h"
 #include <glm/gtc/matrix_transform.hpp>
-#include "Camera.h"
+#include "CameraComponent.h"
 #include "GameManager.h"
 #include "GameObject.h"
 #include "ModelComponent.h"
@@ -11,6 +11,7 @@
 #include "PathGenerator.h"
 #include "TileComponent.h"
 #include "MoveToComponent.h" 
+#include "PlayerComponent.h"
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -18,7 +19,6 @@ using tigl::Vertex;
 #pragma comment(lib, "opengl32.lib")
 
 GLFWwindow* window;
-Camera* camera;
 PathGenerator* pathGenerator;
 GameManager* gameManager;
 
@@ -29,6 +29,7 @@ double lastFrameTime = 0;
 std::list<std::shared_ptr<GameObject>> objects;
 std::list<std::shared_ptr<GameObject>> tiles;
 std::shared_ptr<GameObject> turret;
+std::shared_ptr<GameObject> player;
 std::vector<Texture*> textures;
 std::vector<ObjModel*> models;
 
@@ -100,12 +101,16 @@ void init()
 		grid.push_back(columns);
 	}
 
-	camera = new Camera(window);
+	player = std::make_shared <GameObject>();
+	player->position = glm::vec3(0, 0, 0);
+	player->addComponent(std::make_shared<CameraComponent>(window));
+	player->addComponent(std::make_shared<PlayerComponent>(window));
+
 	pathGenerator = new PathGenerator(grid);
 	path = pathGenerator->aStar();
 	pathGenerator->printGrid();
 	pathGenerator->printPath(path);
-	gameManager = new GameManager(objects, path, models, window, camera);
+	gameManager = new GameManager(objects, path, models, window, player);
 
 	turret = std::make_shared<GameObject>();
 	turret->position = glm::vec3(5, 0, 5);
@@ -150,8 +155,9 @@ void update()
 	{
 		obj->update((float) deltaTime);
 	}
-	camera->update(window);
+	//camera->update(window);
 	gameManager->update();
+	player->update(deltaTime);
 
 	//std::cout << objects.size() << std::endl;
 }
@@ -165,8 +171,10 @@ void draw()
 	glGetIntegerv(GL_VIEWPORT, viewport);
 	glm::mat4 projection = glm::perspective(glm::radians(75.0f), viewport[2] / (float)viewport[3], 0.01f, 1000.0f);
 
+	auto cameraComponent = player->getComponent<CameraComponent>();
+
 	tigl::shader->setProjectionMatrix(projection);
-	tigl::shader->setViewMatrix(camera->getMatrix());
+	tigl::shader->setViewMatrix(cameraComponent->getMatrix());
 	tigl::shader->setModelMatrix(glm::mat4(1.0f));
 	tigl::shader->enableColor(true);
 
@@ -187,5 +195,5 @@ void draw()
 		o->draw();
 	}
 
-	
+	player->draw();
 }

@@ -160,7 +160,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="DrawComponent.cpp" />
     <ClCompile Include="EnemyComponent.cpp" />
@@ -171,13 +171,14 @@
     <ClCompile Include="MoveToComponent.cpp" />
     <ClCompile Include="ObjModel.cpp" />
     <ClCompile Include="PathGenerator.cpp" />
+    <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="PreviewComponent.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="tigl.cpp" />
     <ClCompile Include="TileComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="DrawComponent.h" />
     <ClInclude Include="EnemyComponent.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="MoveToComponent.h" />
     <ClInclude Include="ObjModel.h" />
     <ClInclude Include="PathGenerator.h" />
+    <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="PreviewComponent.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="tigl.h" />
