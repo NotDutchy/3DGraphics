@@ -78,17 +78,24 @@ void GameManager::update()
 			const auto tileComponent = tile->getComponent<TileComponent>();
 			glm::vec3 tilePos = tile->position;
 
-			if (glm::distance(tilePos.x, -player->position.x + 1.0f) < glm::distance(newTurretPos.x, -player->position.x + 1.0f) && tileComponent->isPath)
+			if (tileComponent->isPath)
 			{
 				std::cout << tileComponent->isPath << "\n";
-				newTurretPos.x = tilePos.x;
 			}
-			if (glm::distance(tilePos.z, -player->position.z) < glm::distance(newTurretPos.z, -player->position.z) && tileComponent->isPath)
+
+			if (glm::distance(tilePos.x, -player->position.x + 1.0f) < glm::distance(newTurretPos.x, -player->position.x + 1.0f) && !tileComponent->isPath)
 			{
-				std::cout << tileComponent->isPath << "\n";
+				newTurretPos.x = tilePos.x;
+				std::cout << "New turret x pos: " << newTurretPos.x << " Tile x Pos " << tilePos.x << "\n";
+			}
+			if (glm::distance(tilePos.z, -player->position.z) < glm::distance(newTurretPos.z, -player->position.z) && !tileComponent->isPath)
+			{
 				newTurretPos.z = tilePos.z;
+				std::cout << "New turret z pos: " << newTurretPos.z << " Tile z Pos " << tilePos.z << "\n";
+
 			}
 		}
+		std::cout << "Placing new turret at: " << newTurretPos.x << "," << newTurretPos.z << "\n";
 		auto newTurret = std::make_shared<GameObject>();
 		newTurret->position = newTurretPos;
 		newTurret->addComponent(std::make_shared<ModelComponent>(models[0]));
