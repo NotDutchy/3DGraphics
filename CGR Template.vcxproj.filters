@@ -61,10 +61,10 @@
       <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="PlayerComponent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -108,10 +108,10 @@
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="CameraComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="PlayerComponent.h">
-      <Filter>Header Files</Filter>
+      <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

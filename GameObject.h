@@ -45,9 +45,9 @@ public:
 	template<class T>
 	void removeComponent()
 	{
-		components.remove_if([](Component* c)
+		components.remove_if([](std::shared_ptr<Component> c)
 		{
-			T* t = dynamic_cast<T*>(c);
+			std::shared_ptr<T> t = dynamic_pointer_cast<T>(c);
 			return t != nullptr;
 		});
 	}

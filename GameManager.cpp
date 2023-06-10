@@ -7,6 +7,7 @@
 #include "ModelComponent.h"
 #include "MoveToComponent.h"
 #include "PreviewComponent.h"
+#include "TileComponent.h"
 
 int enemiesAlive = 0;
 
@@ -15,18 +16,18 @@ auto removeDead = [](std::shared_ptr<GameObject> object)
 	if (object->isDead)
 	{
 		enemiesAlive--;
-		std::cout << "Enemies Alive: " << enemiesAlive << "\n";
 		return true;
 	}
 	return false;
 };
 
 GameManager::GameManager(std::list<std::shared_ptr<GameObject>>& objects,
-                         std::vector<PathGenerator::Cell*>& path,
-                         std::vector<ObjModel*>& models,
-                         GLFWwindow* window,
-						 std::shared_ptr<GameObject> player
-)	: objects(objects), path(path), models(models), window(window), player(player)
+	std::list<std::shared_ptr<GameObject>>& tiles,
+	std::vector<PathGenerator::Cell*>& path,
+	std::vector<ObjModel*>& models,
+	std::shared_ptr<GameObject>& player,
+	GLFWwindow* window
+) : objects(objects), tiles(tiles), path(path), models(models), player(player), window(window)
 {
 
 }
@@ -37,7 +38,6 @@ GameManager::~GameManager()
 
 void GameManager::spawnEnemies()
 {
-	
 	while (!isOver && !buildingPhase && enemiesToSpawn > 0)
 	{
 		std::cout << "Spawning Enemy\n";
@@ -48,7 +48,7 @@ void GameManager::spawnEnemies()
 		objects.push_back(enemy);
 		enemiesToSpawn--;
 		enemiesAlive++;
-		std::this_thread::sleep_for(std::chrono::seconds(5)); 
+		std::this_thread::sleep_for(std::chrono::seconds(5));
 	}
 }
 
@@ -59,14 +59,42 @@ void GameManager::despawnEnemies()
 
 void GameManager::update()
 {
-	if (buildingPhase && glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS)
-	{
-		player->addComponent(std::make_shared<PreviewComponent>(models[0]));
-	}
-
 	if (enemiesToSpawn == 0 && enemiesAlive == 0)
 	{
 		buildingPhase = true;
+	}
+
+	if (buildingPhase && glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS && !previewing)
+	{
+		player->addComponent(std::make_shared<PreviewComponent>(models[0]));
+		previewing = true;
+	}
+
+	if (previewing && glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
+	{
+		glm::vec3 newTurretPos = glm::vec3(0, 0, 0);
+		for (const auto& tile : tiles)
+		{
+			const auto tileComponent = tile->getComponent<TileComponent>();
+			glm::vec3 tilePos = tile->position;
+
+			if (glm::distance(tilePos.x, -player->position.x + 1.0f) < glm::distance(newTurretPos.x, -player->position.x + 1.0f) && tileComponent->isPath)
+			{
+				std::cout << tileComponent->isPath << "\n";
+				newTurretPos.x = tilePos.x;
+			}
+			if (glm::distance(tilePos.z, -player->position.z) < glm::distance(newTurretPos.z, -player->position.z) && tileComponent->isPath)
+			{
+				std::cout << tileComponent->isPath << "\n";
+				newTurretPos.z = tilePos.z;
+			}
+		}
+		auto newTurret = std::make_shared<GameObject>();
+		newTurret->position = newTurretPos;
+		newTurret->addComponent(std::make_shared<ModelComponent>(models[0]));
+		objects.push_back(newTurret);
+		player->removeComponent<PreviewComponent>();
+		previewing = false;
 	}
 }
 

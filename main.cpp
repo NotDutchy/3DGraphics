@@ -12,6 +12,7 @@
 #include "TileComponent.h"
 #include "MoveToComponent.h" 
 #include "PlayerComponent.h"
+#include "PreviewComponent.h"
 using tigl::Vertex;
 
 #pragma comment(lib, "glfw3.lib")
@@ -110,31 +111,26 @@ void init()
 	path = pathGenerator->aStar();
 	pathGenerator->printGrid();
 	pathGenerator->printPath(path);
-	gameManager = new GameManager(objects, path, models, window, player);
+	gameManager = new GameManager(objects, tiles, path, models, player, window);
 
-	turret = std::make_shared<GameObject>();
-	turret->position = glm::vec3(5, 0, 5);
-	turret->addComponent(std::make_shared<ModelComponent>(models[0]));
-	objects.push_back(turret);
-
-	for (auto& object : tiles)
+	for (auto& tile : tiles)
 	{
 		for (auto cell : path)
 		{
-			if ((object->position.x == cell->row) && (object->position.z == cell->col))
+			if ((tile->position.x == cell->row) && (tile->position.z == cell->col))
 			{
-				object->addComponent(std::make_shared<TileComponent>(1.0f, textures[0], true));
+				tile->addComponent(std::make_shared<TileComponent>(1.0f, textures[0], true));
 			}
 		}
 
-		if (object->getComponent<TileComponent>() != nullptr && object->getComponent<TileComponent>()->isPath)
+		if (tile->getComponent<TileComponent>() != nullptr && tile->getComponent<TileComponent>()->isPath)
 		{
 			//std::cout << "Tile is part of path continuing\n";
 		}
 		else
 		{
 			//std::cout << "Adding regular tile to array\n";
-			object->addComponent(std::make_shared<TileComponent>(1.0f, textures[1], false)); //, 
+			tile->addComponent(std::make_shared<TileComponent>(1.0f, textures[1], false)); //, 
 		}
 	}
 
@@ -155,11 +151,9 @@ void update()
 	{
 		obj->update((float) deltaTime);
 	}
-	//camera->update(window);
+
 	gameManager->update();
 	player->update(deltaTime);
-
-	//std::cout << objects.size() << std::endl;
 }
 
 void draw()
@@ -195,5 +189,8 @@ void draw()
 		o->draw();
 	}
 
-	player->draw();
+	if (player->getComponent<PreviewComponent>() != nullptr)
+	{
+		player->draw();
+	}
 }

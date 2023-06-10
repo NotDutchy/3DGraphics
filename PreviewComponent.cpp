@@ -12,7 +12,7 @@ PreviewComponent::PreviewComponent(ObjModel* model) : model(model) {
 
 PreviewComponent::~PreviewComponent()
 {
-	
+
 }
 
 void PreviewComponent::updatePreviewMatrix()
@@ -24,14 +24,15 @@ void PreviewComponent::updatePreviewMatrix()
 
 		ret = glm::translate(ret, position);
 
-		//ret = glm::rotate(ret, gameObject->rotation.y, glm::vec3(0, 1, 0));
+		//ret = glm::rotate(ret, -gameObject->rotation.y, glm::vec3(0, 1, 0));
 		//ret = glm::rotate(ret, gameObject->rotation.x, glm::vec3(1, 0, 0));
 
 		float zDistance = 1.0f;
-
 		glm::vec3 pos = glm::vec3(zDistance, 0.0f, 0.0f);
 
-		ret = glm::translate(ret, position);
+		ret = glm::translate(ret, pos);
+
+		//ret = glm::rotate(ret, .5f, glm::vec3(0, 1, 0));
 
 		this->mat = ret;
 	}

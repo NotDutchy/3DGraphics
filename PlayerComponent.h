@@ -13,6 +13,6 @@ public:
 
 private:
 	void move(float angle, float speed);
-	float speed = 0.5f;
+	float speed = 4.0f;
 	GLFWwindow* window;
 };
