@@ -105,7 +105,6 @@ void GameManager::update()
 			{
 				newTurretPos.z = tilePos.z;
 				std::cout << "New turret z pos: " << newTurretPos.z << " Tile z Pos " << tilePos.z << "\n";
-
 			}
 		}
 		std::cout << "Placing new turret at: " << newTurretPos.x << "," << newTurretPos.z << "\n";

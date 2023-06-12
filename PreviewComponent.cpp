@@ -24,8 +24,8 @@ void PreviewComponent::updatePreviewMatrix()
 
 		ret = glm::translate(ret, position);
 
-		float zDistance = 1.0f;
-		glm::vec3 pos = glm::vec3(zDistance, 0.0f, 0.0f);
+		float xDistance = 1.0f;
+		glm::vec3 pos = glm::vec3(xDistance, 0.0f, 0.0f);
 
 		ret = glm::translate(ret, pos);
 

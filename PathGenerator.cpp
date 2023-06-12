@@ -1,6 +1,8 @@
 #include "PathGenerator.h"
 #include <fstream>
 
+#include "GameManager.h"
+
 PathGenerator::PathGenerator(std::vector<std::vector<int>> startGrid) : grid(startGrid)
 {
 	start = new Cell(0, 0);
@@ -79,51 +81,56 @@ std::vector<PathGenerator::Cell*> PathGenerator::aStar(bool readFromFile)
 	start->calculateHeuristic(*goal);
 	start->totCost = start->costStartToCurrent + start->heuristicCostCurrentToGoal;
 
-	while (!openSet.empty())
+	try
 	{
-		Cell* current = openSet.top();
-		openSet.pop();
-
-		if (isGoalCell(*current, *goal))
+		while (!openSet.empty())
 		{
-			return tracePath(current);
-		}
+			Cell* current = openSet.top();
+			openSet.pop();
 
-		int row = current->row;
-		int col = current->col;
-
-		visited[row][col] = true;
-
-		const std::vector<int> dr = { -1, 0, 1, 0 };
-		const std::vector<int> dc = { 0, 1, 0, -1 };
-		for (int i = 0; i < 4; i++)
-		{
-			int newRow = row + dr[i];
-			int newCol = col + dc[i];
-
-			if (newRow < 0 || newCol < 0 || newRow > grid.size() - 1 || newCol > grid[0].size() - 1)
-				continue;
-
-			if (isValidCell(grid, newRow, newCol) && !visited[newRow][newCol])
+			if (isGoalCell(*current, *goal))
 			{
-				auto neighbor = new Cell(newRow, newCol);
-				neighbor->parent = current;
+				return tracePath(current);
+			}
 
-				neighbor->costStartToCurrent = current->costStartToCurrent + 1;
+			int row = current->row;
+			int col = current->col;
 
-				neighbor->calculateHeuristic(*goal);
+			visited[row][col] = true;
 
-				neighbor->totCost = neighbor->costStartToCurrent + neighbor->heuristicCostCurrentToGoal;
+			const std::vector<int> dr = { -1, 0, 1, 0 };
+			const std::vector<int> dc = { 0, 1, 0, -1 };
+			for (int i = 0; i < 4; i++)
+			{
+				int newRow = row + dr[i];
+				int newCol = col + dc[i];
 
-				openSet.push(neighbor);
+				if (newRow < 0 || newCol < 0 || newRow > grid.size() - 1 || newCol > grid[0].size() - 1)
+					continue;
 
-				visited[newRow][newCol] = true;
+				if (isValidCell(grid, newRow, newCol) && !visited[newRow][newCol])
+				{
+					auto neighbor = new Cell(newRow, newCol);
+					neighbor->parent = current;
+
+					neighbor->costStartToCurrent = current->costStartToCurrent + 1;
+
+					neighbor->calculateHeuristic(*goal);
+
+					neighbor->totCost = neighbor->costStartToCurrent + neighbor->heuristicCostCurrentToGoal;
+
+					openSet.push(neighbor);
+
+					visited[newRow][newCol] = true;
+				}
 			}
 		}
 	}
-
-	std::cout << "No path found" << std::endl;
-	return std::vector<Cell*>();
+	catch (const std::exception& e)
+	{
+		std::cerr << "Error: " << e.what() << std::endl;
+		return std::vector<Cell*>();
+	}
 }
 
 void PathGenerator::printGrid()
