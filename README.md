@@ -1,12 +1,22 @@
 # OpenGL TowerDefense
 
 ## Description
+Concept Towerdefense game made for the 3D-Graphics module for Computer science. Enemies move along the path and its your job to defend against the coming horde!
 
 ## Features
-
+ - Fly around and place towers wherever you want.
+ - Lightning and shading effects using OpenGL.
+ - Keyboard input to move the player.
 ## Usage
+ - Use the AWSD-keys to fly around the world.
+ - You can use Leftctrl to fly down and use space to fly up.
+ - During buildingphase (When there are no more enemies and none are spawning), press 1 to enter building mode.
+ - Whilst in building mode, press return to place the turret on the nearest tile.
 
 ## Dependencies
+This project uses the following dependencies:
+ - OpenGL
+ - C++
 
 ## Requirements
 
