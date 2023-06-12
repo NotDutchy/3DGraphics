@@ -45,14 +45,22 @@ void GameManager::spawnEnemies()
 	while (!isOver && !buildingPhase && enemiesToSpawn > 0)
 	{
 		std::cout << "Spawning Enemy\n";
-		auto enemy = std::make_shared<GameObject>();
-		enemy->position = glm::vec3(0, 0, 0);
-		enemy->addComponent(std::make_shared<ModelComponent>(models[1]));
-		enemy->addComponent(std::make_shared<MoveToComponent>(path));
-		objects.push_back(enemy);
-		enemiesToSpawn--;
-		enemiesAlive++;
-		std::this_thread::sleep_for(std::chrono::seconds(5));
+
+		try
+		{
+			auto enemy = std::make_shared<GameObject>();
+			enemy->position = glm::vec3(0, 0, 0);
+			enemy->addComponent(std::make_shared<ModelComponent>(models[1]));
+			enemy->addComponent(std::make_shared<MoveToComponent>(path));
+			objects.push_back(enemy);
+			enemiesToSpawn--;
+			enemiesAlive++;
+			std::this_thread::sleep_for(std::chrono::seconds(5));
+		}
+		catch (const std::exception& exception)
+		{
+			std::cerr << "Error: " << exception.what() << std::endl;
+		}
 	}
 }
 
