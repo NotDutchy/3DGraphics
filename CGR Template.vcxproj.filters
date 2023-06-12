@@ -118,5 +118,8 @@
     <Text Include="Path.txt">
       <Filter>Resource Files</Filter>
     </Text>
+    <Text Include="TestResults.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

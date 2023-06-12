@@ -13,7 +13,6 @@ PathGenerator::~PathGenerator()
 
 bool PathGenerator::isValidCell(const std::vector<std::vector<int>>& grid, int row, int col)
 {
-	std::cout << "Comparing cells: Row " << row << " and Col " << col << " and grid " << grid[row][col] << "\n";
 	int numRows = grid.size();
 	int numCols = grid[0].size();
 	return (row >= 0 && row < numRows&& col >= 0 && col < numCols&& grid[row][col] == 0);
@@ -50,7 +49,6 @@ std::vector<PathGenerator::Cell*> PathGenerator::aStar(bool readFromFile)
 			int x, y;
 			while (inputFile >> delimiter >> x >> delimiter >> y >> delimiter >> delimiter)
 			{
-				std::cout << "Creating new Cell: " << x << "," << y << std::endl;
 				Cell* cell = new Cell(x, y);
 				path.push_back(cell);
 			}

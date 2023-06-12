@@ -6,4 +6,4 @@
 
 #include "gtest/gtest.h"
 
-std::vector<std::vector<int>> generateGrid(int gridWidth, int gridHeight);
+void writeTestResults(const std::string& testName, const std::string& testClass, bool succes);
