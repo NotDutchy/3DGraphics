@@ -45,7 +45,8 @@ public:
 
 	std::vector<Cell*> tracePath(Cell* goal);
 	
-	std::vector<Cell*> aStar();
+	std::vector<Cell*> aStar(bool readFromFile);
 	void printGrid();
 	void printPath(const std::vector<Cell*>& path);
+	void writePathToFile(const std::vector<Cell*>& path);
 };

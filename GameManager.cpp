@@ -81,14 +81,15 @@ void GameManager::update()
 			if (tileComponent->isPath)
 			{
 				std::cout << tileComponent->isPath << "\n";
+				continue;
 			}
 
-			if (glm::distance(tilePos.x, -player->position.x + 1.0f) < glm::distance(newTurretPos.x, -player->position.x + 1.0f) && !tileComponent->isPath)
+			if (glm::distance(tilePos.x, -player->position.x + 1.0f) < glm::distance(newTurretPos.x, -player->position.x + 1.0f))
 			{
 				newTurretPos.x = tilePos.x;
 				std::cout << "New turret x pos: " << newTurretPos.x << " Tile x Pos " << tilePos.x << "\n";
 			}
-			if (glm::distance(tilePos.z, -player->position.z) < glm::distance(newTurretPos.z, -player->position.z) && !tileComponent->isPath)
+			if (glm::distance(tilePos.z, -player->position.z) < glm::distance(newTurretPos.z, -player->position.z))
 			{
 				newTurretPos.z = tilePos.z;
 				std::cout << "New turret z pos: " << newTurretPos.z << " Tile z Pos " << tilePos.z << "\n";

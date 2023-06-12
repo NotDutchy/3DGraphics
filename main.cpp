@@ -108,9 +108,11 @@ void init()
 	player->addComponent(std::make_shared<PlayerComponent>(window));
 
 	pathGenerator = new PathGenerator(grid);
-	path = pathGenerator->aStar();
+	path = pathGenerator->aStar(false);
 	pathGenerator->printGrid();
 	pathGenerator->printPath(path);
+	pathGenerator->writePathToFile(path);
+
 	gameManager = new GameManager(objects, tiles, path, models, player, window);
 
 	for (auto& tile : tiles)

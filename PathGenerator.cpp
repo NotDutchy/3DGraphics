@@ -1,9 +1,10 @@
 #include "PathGenerator.h"
+#include <fstream>
 
 PathGenerator::PathGenerator(std::vector<std::vector<int>> startGrid) : grid(startGrid)
 {
 	start = new Cell(0, 0);
-	goal =  new Cell(grid.size() - 1, grid.size() - 1);
+	goal = new Cell(grid.size() - 1, grid.size() - 1);
 }
 
 PathGenerator::~PathGenerator()
@@ -13,9 +14,9 @@ PathGenerator::~PathGenerator()
 bool PathGenerator::isValidCell(const std::vector<std::vector<int>>& grid, int row, int col)
 {
 	std::cout << "Comparing cells: Row " << row << " and Col " << col << " and grid " << grid[row][col] << "\n";
- 	int numRows = grid.size();
+	int numRows = grid.size();
 	int numCols = grid[0].size();
-	return (row >= 0 && row < numRows && col >= 0 && col < numCols && grid[row][col] == 0);
+	return (row >= 0 && row < numRows&& col >= 0 && col < numCols&& grid[row][col] == 0);
 }
 
 bool PathGenerator::isGoalCell(const Cell& cell, const Cell& goal)
@@ -36,8 +37,31 @@ std::vector<PathGenerator::Cell*> PathGenerator::tracePath(Cell* goal)
 	return path;
 }
 
-std::vector<PathGenerator::Cell*> PathGenerator::aStar()
+std::vector<PathGenerator::Cell*> PathGenerator::aStar(bool readFromFile)
 {
+	if (readFromFile)
+	{
+		std::vector<Cell*> path;
+		std::fstream inputFile;
+		inputFile.open("Path.txt");
+		if (inputFile.is_open())
+		{
+			char delimiter;
+			int x, y;
+			while (inputFile >> delimiter >> x >> delimiter >> y >> delimiter >> delimiter)
+			{
+				std::cout << "Creating new Cell: " << x << "," << y << std::endl;
+				Cell* cell = new Cell(x, y);
+				path.push_back(cell);
+			}
+			inputFile.close();
+			return path;
+		}
+
+		std::cout << "Could not open the path.txt file." << std::endl;
+		return std::vector<Cell*>();
+	}
+
 	if (!isValidCell(grid, start->row, start->col) || !isValidCell(grid, goal->row, goal->col))
 	{
 		std::cout << "Invalid start or goal cell" << "\n";
@@ -68,8 +92,8 @@ std::vector<PathGenerator::Cell*> PathGenerator::aStar()
 
 		visited[row][col] = true;
 
-		const std::vector<int> dr = {-1, 0, 1, 0};
-		const std::vector<int> dc = {0, 1, 0, -1};
+		const std::vector<int> dr = { -1, 0, 1, 0 };
+		const std::vector<int> dc = { 0, 1, 0, -1 };
 		for (int i = 0; i < 4; i++)
 		{
 			int newRow = row + dr[i];
@@ -112,11 +136,22 @@ void PathGenerator::printGrid()
 	}
 }
 
-void PathGenerator::printPath(const std::vector<Cell*> &path)
+void PathGenerator::printPath(const std::vector<Cell*>& path)
 {
 	for (const Cell* cell : path)
 	{
 		std::cout << "(" << cell->row << ", " << cell->col << ")";
 	}
 	std::cout << "\n";
+}
+
+void PathGenerator::writePathToFile(const std::vector<Cell*>& path)
+{
+	std::fstream outPutFile;
+	outPutFile.open("Path.txt");
+	for (const Cell* cell : path)
+	{
+		outPutFile << "(" << cell->row << ", " << cell->col << "), ";
+	}
+	outPutFile.close();
 }

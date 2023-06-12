@@ -19,7 +19,7 @@ public:
 	GLFWwindow* window;
 
 	bool isOver = false;
-	bool buildingPhase = true;
+	bool buildingPhase = false;
 	bool previewing = false;
 	int enemiesToSpawn = 5;
 
