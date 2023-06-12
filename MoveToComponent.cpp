@@ -12,6 +12,7 @@ MoveToComponent::~MoveToComponent()
 	
 }
 
+// Logic for moving the enemies over the path.
 void MoveToComponent::update(float elapsedTime)
 { 
 	if ((gameObject->position.x >= target.x - 0.01f) && (gameObject->position.z >= target.z - 0.01f) && nextTarget < path.size())

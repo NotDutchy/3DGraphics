@@ -36,6 +36,10 @@ std::vector<PathGenerator::Cell*> PathGenerator::tracePath(Cell* goal)
 	return path;
 }
 
+/*
+ * Generates the shortest path with the given grid to the goal cell, using the A* method.
+ * If the bool parameter is set to true it will instead read a path from the Path.txt file.
+ */
 std::vector<PathGenerator::Cell*> PathGenerator::aStar(bool readFromFile)
 {
 	if (readFromFile)

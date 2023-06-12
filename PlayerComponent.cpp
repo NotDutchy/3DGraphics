@@ -18,6 +18,7 @@ void PlayerComponent::move(float angle, float speed)
 	gameObject->position.z += (float)sin(gameObject->rotation.y + glm::radians(angle)) * speed;
 }
 
+// Handles player input for movement.
 void PlayerComponent::update(float elapsedTime)
 {
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)

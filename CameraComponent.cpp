@@ -39,11 +39,6 @@ void CameraComponent::update(float elapsedTime)
 	if (tempX < 1.5f && tempX > -1.0f)
 		gameObject->rotation.x = tempX;
 
-	/*float tempY = gameObject->rotation.y - (float)(lastX - x) / 100.f;
-
-	if (tempY < 3.0f && tempY > 0.0f)
-		gameObject->rotation.y = tempY;*/
-
 	gameObject->rotation.y -= (float)(lastX - x) / 100.0f;
 
 	lastX = x;

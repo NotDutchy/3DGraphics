@@ -51,9 +51,6 @@
     <ClCompile Include="MoveToComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyComponent.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -96,9 +93,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MoveToComponent.h">
-      <Filter>components</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyComponent.h">
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">

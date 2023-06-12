@@ -36,6 +36,10 @@ GameManager::~GameManager()
 {
 }
 
+/*
+ * Method used for spawning in enemies. Should be called in a seperate thread to make sure it doesnt interfere with the main loop.
+ * It creates a new enemy ever 5 seconds until there shouldn't be any more enemies.
+ */
 void GameManager::spawnEnemies()
 {
 	while (!isOver && !buildingPhase && enemiesToSpawn > 0)
@@ -57,6 +61,14 @@ void GameManager::despawnEnemies()
 	objects.remove_if(removeDead);
 }
 
+/*
+ * Handles other aspects of player input that should be handled in GameManager instead of player component.
+ * Sets buildingPhase when there are no more enemies to be spawned and all enemies are dead.
+ *
+ * Handles preview of placing a new turret when building phase is active and the 1-key is pressed on the keyboard.
+ *
+ * When Enter is pressed whilst previewing it places the turret on the nearest tile.
+ */
 void GameManager::update()
 {
 	if (enemiesToSpawn == 0 && enemiesAlive == 0)
