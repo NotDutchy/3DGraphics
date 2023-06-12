@@ -1,0 +1,9 @@
+(PathGeneratorTestClass.TestAStar) = Passed
+(PathGeneratorTestClass.TestAStar) = Passed
+(PathGeneratorTestClass.TestAStar) = Passed
+(PathGeneratorTestClass.TestAStar) = Passed
+(PathGeneratorTestClass.PathFileRead) = Passed
+(PathGeneratorTestClass.PathFileRead) = Passed
+(PathGeneratorTestClass.PathFileRead) = Passed
+(PathGeneratorTestClass.PathFileRead) = Passed
+(PathGeneratorTestClass.PathFileWrite) = Passed
