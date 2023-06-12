@@ -43,3 +43,7 @@ This project uses the following dependencies:
 | Proxy-patroon: Protection proxy                                                                                                                                                         	|         	| N.V.T.                                                                                                                                 	|
 | Nested datatypes                                                                                                                                                                        	| x       	| Pathgenerator maakt gebruik van Cell deze is in pathgenerator.h definieert. Verder gebruikt Obj model natuurlijk ook nested datatypes. 	|
 | De code voldoet aantoonbaar aan andere, wenselijke (kwaliteit verhogende) en gespecificeerde criteria                                                                                   	|         	| N.V.T.                                                                                                                                 	|
+
+## Known Bugs
+ - Turrets are placeable on top of the path
+ - After building 1 turret the building preview stays in the position of the first turret build.
