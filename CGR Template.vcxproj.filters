@@ -54,13 +54,13 @@
     <ClCompile Include="GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PreviewComponent.cpp">
-      <Filter>components</Filter>
-    </ClCompile>
     <ClCompile Include="CameraComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
     <ClCompile Include="PlayerComponent.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="PreviewComponent.cpp">
       <Filter>components</Filter>
     </ClCompile>
   </ItemGroup>

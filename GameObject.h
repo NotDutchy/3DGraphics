@@ -7,6 +7,7 @@
 
 class Component;
 class DrawComponent;
+class PreviewComponent;
 
 class GameObject
 {
@@ -47,7 +48,7 @@ public:
 	{
 		components.remove_if([](std::shared_ptr<Component> c)
 		{
-			std::shared_ptr<T> t = dynamic_pointer_cast<T>(c);
+			std::shared_ptr<T> t = std::dynamic_pointer_cast<T>(c);
 			return t != nullptr;
 		});
 	}
